@@ -1,75 +1,90 @@
-# React + TypeScript + Vite
+# Monster Memory Game
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A fun and interactive memory matching game built with React. The goal is to find all matching pairs of monsters by flipping cards.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Responsive Game Board**: Adapts to mobile, tablet, and desktop screens
+- **Tile Matching**: Flip cards to reveal unique monster icons and find match pairs
+- **Theme Support**: Fully functional Dark/Light mode toggle
+- **Score Tracking**: Tracks your moves and time taken to complete the game
+- **Interactive UI**: Smooth card flip animations and hover effects
+- **Victory Celebration**: Celebration modal with stats upon winning
 
-## React Compiler
+## Installation
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd memory-game
+   ```
 
-Note: This will impact Vite dev & build performances.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-## Expanding the ESLint configuration
+## Running the Game
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Start the development server:
+```bash
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Open your browser and navigate to `http://localhost:5173` to play the game.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Gameplay Instructions
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Objective
+Find all matched pairs of monster cards on the board.
+
+### Controls
+- **Mouse/Touch**: Click or tap on a card to flip it over.
+- **Theme Toggle**: Click the Sun/Moon icon in the header to switch themes.
+- **Restart**: Click the circular arrow icon to reset the game.
+
+### Rules
+1. Click a card to reveal the hidden monster.
+2. Click a second card to try and find a match.
+3. If the cards match, they stay face up.
+4. If they don't match, they flip back over after a short delay.
+5. The game ends when all pairs are found.
+
+### Scoring
+- **Moves**: The number of turns you've taken (flipping two cards counts as one move).
+- **Time**: How long it takes you to solve the puzzle.
+
+## Implementation Details
+
+### Architecture
+- **React**: Component-based UI with hooks for state management.
+- **Tailwind CSS**: Utility-first CSS for styling, dark mode, and responsive design.
+- **Vite**: Fast build tool and development server.
+
+### Key Components
+- `App.tsx`: Main application container and layout.
+- `Tile.tsx`: Individual card component handling flip animations and icon rendering.
+- `Header.tsx`: Displays game stats (time, moves) and controls.
+- `WinModal.tsx`: Displays victory message and final stats.
+- `WelcomeScreen.tsx`: Initial screen to start the game.
+
+### Game Logic (`hooks/useGame.ts`)
+- Manages the deck state (shuffling, flipping, matching).
+- Handles game status (welcome, playing, won).
+- Tracks moves and timer.
+
+### Custom Hooks
+- `useTheme.ts`: Manages dark/light mode state and applies theme classes.
+- `useGame.ts`: Encapsulates all game mechanics and state.
+
+## Technologies Used
+
+- React 19
+- TypeScript
+- Vite
+- Tailwind CSS v4
+- FontAwesome Icons
+- HTML5 & CSS3
+
+## Hosted Link
+- 

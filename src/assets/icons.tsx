@@ -1,4 +1,3 @@
-import React from 'react';
 import type { IconType } from '../types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {

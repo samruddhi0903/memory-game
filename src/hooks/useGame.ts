@@ -6,7 +6,7 @@ import { shuffleCards } from '../utils/gameLogic';
 export const useGame = () => {
   const [gameStatus, setGameStatus] = useState<GameStatus>('welcome');
   const [cards, setCards] = useState<Card[]>([]);
-  const [flippedIndices, setFlippedIndices] = useState<number[]>([]);
+  const [, setFlippedIndices] = useState<number[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
   const [stats, setStats] = useState<GameStats>({
     moves: 0,
@@ -53,53 +53,53 @@ export const useGame = () => {
 
     // Ui for fliping the card
     setCards(prev => {
-        const newCards = [...prev];
-        newCards[clickedCard.id] = { ...newCards[clickedCard.id], isFlipped: true };
-        return newCards;
+      const newCards = [...prev];
+      newCards[clickedCard.id] = { ...newCards[clickedCard.id], isFlipped: true };
+      return newCards;
     });
 
     setFlippedIndices(prev => {
       const newFlipped = [...prev, clickedCard.id];
-      
+
       if (newFlipped.length === 2) {
         setIsProcessing(true);
         setStats(s => ({ ...s, moves: s.moves + 1 }));
 
         const [firstId, secondId] = newFlipped;
-        
+
         // matching logic using state update
         setCards(currentCards => {
-            const firstCard = currentCards[firstId];
-            const secondCard = currentCards[secondId];
-            
-            const isMatch = firstCard.icon === secondCard.icon;
-            
-            if (isMatch) {
-                setTimeout(() => {
-                    setCards(c => c.map(card => 
-                        (card.id === firstId || card.id === secondId)
-                            ? { ...card, isMatched: true, isFlipped: true }
-                            : card
-                    ));
-                    setFlippedIndices([]);
-                    setIsProcessing(false);
-                }, 500);
-            } else {
-                 setTimeout(() => {
-                    setCards(c => c.map(card => 
-                        (card.id === firstId || card.id === secondId)
-                            ? { ...card, isFlipped: false }
-                            : card
-                    ));
-                    setFlippedIndices([]);
-                    setIsProcessing(false);
-                }, 1000);
-            }
-            
-            return currentCards;
+          const firstCard = currentCards[firstId];
+          const secondCard = currentCards[secondId];
+
+          const isMatch = firstCard.icon === secondCard.icon;
+
+          if (isMatch) {
+            setTimeout(() => {
+              setCards(c => c.map(card =>
+                (card.id === firstId || card.id === secondId)
+                  ? { ...card, isMatched: true, isFlipped: true }
+                  : card
+              ));
+              setFlippedIndices([]);
+              setIsProcessing(false);
+            }, 500);
+          } else {
+            setTimeout(() => {
+              setCards(c => c.map(card =>
+                (card.id === firstId || card.id === secondId)
+                  ? { ...card, isFlipped: false }
+                  : card
+              ));
+              setFlippedIndices([]);
+              setIsProcessing(false);
+            }, 1000);
+          }
+
+          return currentCards;
         });
       }
-      
+
       return newFlipped;
     });
   }, [isProcessing]);
